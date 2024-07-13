@@ -1,0 +1,28 @@
+{% extends "tweet/layout.html" %}
+
+{% block title %}
+Confirm Delete
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
+    <div class="max-w-lg mx-auto bg-gray-800 p-6 rounded-lg shadow-md">
+        <h1 class="text-3xl font-bold mb-4">Confirm Delete</h1>
+        <p class="text-gray-300 mb-4">Are you sure you want to delete this tweet?</p>
+        <div class="bg-gray-700 p-4 rounded-lg mb-4">
+            <p class="text-gray-300 mb-2"><strong>Tweet:</strong> {{ tweet.text }}</p>
+            <p class="text-gray-400 text-sm">{{ tweet.created_at|date:"M d, Y, H:i" }}</p>
+            {% if tweet.image %}
+                <div class="mt-4">
+                    <img src="{{ tweet.photo.url }}" alt="Tweet image" class="w-full rounded-lg">
+                </div>
+            {% endif %}
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+            <a href="{% url 'tweet_list' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-2">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

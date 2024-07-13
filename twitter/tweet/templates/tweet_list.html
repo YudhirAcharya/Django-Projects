@@ -5,28 +5,28 @@ Twitter
 {% endblock %}
 
 {% block content %}
-<div class="container mx-auto px-4 py-8">
+<div class="container mx-auto px-4 py-8 bg-gray-900 text-white min-h-screen">
     <h1 class="text-3xl font-bold mb-4">Tweets</h1>
     <div class="space-y-4">
         {% for tweet in tweets %}
-            <div class="bg-white shadow-md rounded-lg p-6">
+            <div class="bg-gray-800 shadow-md rounded-lg p-6">
                 <div class="flex items-center space-x-4 mb-4">
-                    <div class="w-12 h-12 bg-gray-300 rounded-full flex items-center justify-center text-xl font-semibold">
+                    <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center text-xl font-semibold">
                         {{ tweet.user.username|first|upper }}
                     </div>
                     <div>
                         <h2 class="text-xl font-semibold">{{ tweet.user.username }}</h2>
-                        <p class="text-gray-600">{{ tweet.created_at|date:"M d, Y" }}</p>
+                        <p class="text-gray-400">{{ tweet.created_at|date:"M d, Y" }}</p>
                     </div>
                 </div>
                 {% if tweet.image %}
                     <div class="mb-4">
-                        <img src="{{ tweet.photo.url}}" alt="Tweet image" class="w-full rounded-lg">
+                        <img src="{{ tweet.photo.url }}" alt="Tweet image" class="w-full rounded-lg">
                     </div>
                 {% endif %}
-                <p class="text-gray-800">{{ tweet.text }}</p>
-                <a href="{% url 'tweet_edit' tweet.id %}" class="text-blue-500 hover:underline">Edit</a>
-                <a href="{% url 'tweet_delete' tweet.id %}" class="text-red-500 hover:underline">Delete</a>
+                <p class="text-gray-300">{{ tweet.text }}</p>
+                <a href="{% url 'tweet_edit' tweet.id %}" class="text-blue-400 hover:underline">Edit</a>
+                <a href="{% url 'tweet_delete' tweet.id %}" class="text-red-400 hover:underline">Delete</a>
             </div>
         {% endfor %}
     </div>
