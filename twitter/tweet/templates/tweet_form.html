@@ -1,23 +1,36 @@
 {% extends "tweet/layout.html" %}
+{% load widget_tweaks %}
 
 {% block title %}
 Twitter
 {% endblock %}
 
 {% block content %}
-<div class="bg-gray-900  min-h-screen py-8">
-    <div class="max-w-2xl mx-auto bg-gray-800 p-6 rounded-lg shadow-md">
-        <h1 class="text-2xl font-semibold mb-4">{% if form.instance.pk %}Edit Tweet {% else %}Create Tweet {% endif %}</h1>
+<div class="bg-gray-900 min-h-screen py-4">
+    <div class="max-w-md mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-semibold text-white mb-4">
+            {% if form.instance.pk %}Edit Tweet{% else %}Create Tweet{% endif %}
+        </h1>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="space-y-4">
-                {{ form.as_p }}
+                {% for field in form %}
+                    <div class="flex flex-col space-y-2">
+                        <label for="{{ field.id_for_label }}" class="text-white">{{ field.label }}</label>
+                        {{ field|add_class:"block w-full p-2 rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500" }}
+                        {% if field.errors %}
+                            <p class="text-red-500 text-sm">{{ field.errors }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
             </div>
             <div class="mt-6">
-                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                <button type="submit" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Submit</button>
             </div>
         </form>
-            <a href="{% url 'tweet_list' %}" class="text-blue-500 hover:underline">Back to tweets</a>
+        <div class="mt-4">
+            <a href="{% url 'tweet_list' %}" class="text-blue-400 hover:underline text-md">Back to tweets</a>
+        </div>
     </div>
 </div>
 {% endblock %}
